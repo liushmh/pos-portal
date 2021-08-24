@@ -65,6 +65,26 @@ module.exports = {
       gas: 7000000,
       gasPrice: '0'
     },
+    NBAI: {
+      provider: () =>
+        new HDWalletProvider(
+          MNEMONIC,
+          `https://api.nbai.io`
+        ),
+      network_id: '*',
+      gas: 7000000,
+      gasPrice: 10000000000, // 10 gwei
+      skipDryRun: true
+    },
+    BSCTest: {
+      provider: () =>
+        new HDWalletProvider(
+          MNEMONIC,
+          `https://data-seed-prebsc-1-s1.binance.org:8545`
+        ),
+      network_id: 97,
+      skipDryRun: true
+    },
     mumbaiRoot: {
       provider: () =>
         new HDWalletProvider(
