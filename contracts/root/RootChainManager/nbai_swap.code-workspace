@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../../../.."
+		},
+		{
+			"path": "../../../../../blockchain/eventeum"
+		},
+		{
+			"path": "../../../../../ethereum-watcher"
+		}
+	],
+	"settings": {}
+}
