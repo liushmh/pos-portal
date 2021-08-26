@@ -32,4 +32,5 @@ module.exports = async(deployer) => {
 
   console.log('Mapping NBAIERC20')
   await ChildChainManagerInstance.mapToken('0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', contractAddresses.child.NBAIERC20)
+
 }

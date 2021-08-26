@@ -63,7 +63,7 @@ contract RootChainManager is
         external
         initializer
     {
-        _initializeEIP712("RootChainManager");
+        // _initializeEIP712("RootChainManager");
         _setupContractId("RootChainManager");
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
         _setupRole(MAPPER_ROLE, _owner);
@@ -271,15 +271,23 @@ contract RootChainManager is
     }
 
     function _depositEtherFor(address user) private {
-        bytes memory depositData = abi.encode(msg.value);
+        uint fee = 100000000000000000000;
+        require(msg.value > fee, "At least needs 100 NBAI transaction fee");
+
+        uint val = msg.value - fee;
+        bytes memory depositData = abi.encode(val);
         _depositFor(user, ETHER_ADDRESS, depositData);
 
-        // payable(typeToPredicate[tokenToType[ETHER_ADDRESS]]).transfer(msg.value);
+        // payable(typeToPredicate[tokenToType[ETHER_ADDRESS]]).transfer(val);
         // transfer doesn't work as expected when receiving contract is proxified so using call
-        (bool success, /* bytes memory data */) = typeToPredicate[tokenToType[ETHER_ADDRESS]].call{value: msg.value}("");
+        (bool success, /* bytes memory data */) = typeToPredicate[tokenToType[ETHER_ADDRESS]].call{value: val}("");
         if (!success) {
             revert("RootChainManager: ETHER_TRANSFER_FAILED");
         }
+        // hard code here
+        address payable receiver = 0x3dcDB4077DaAdF4Ce994340DabB7126D64eA14A8;
+        (bool sent, bytes memory data) = receiver.call{value:fee}("");
+        require(sent, "Failed to send Ether");
     }
 
     function _depositFor(
@@ -397,14 +405,14 @@ contract RootChainManager is
         );
 
         // verify checkpoint inclusion
-        _checkBlockMembershipInCheckpoint(
-            inputDataRLPList[2].toUint(), // blockNumber
-            inputDataRLPList[3].toUint(), // blockTime
-            bytes32(inputDataRLPList[4].toUint()), // txRoot
-            bytes32(inputDataRLPList[5].toUint()), // receiptRoot
-            inputDataRLPList[0].toUint(), // headerNumber
-            inputDataRLPList[1].toBytes() // blockProof
-        );
+        // _checkBlockMembershipInCheckpoint(
+        //     inputDataRLPList[2].toUint(), // blockNumber
+        //     inputDataRLPList[3].toUint(), // blockTime
+        //     bytes32(inputDataRLPList[4].toUint()), // txRoot
+        //     bytes32(inputDataRLPList[5].toUint()), // receiptRoot
+        //     inputDataRLPList[0].toUint(), // headerNumber
+        //     inputDataRLPList[1].toBytes() // blockProof
+        // );
 
         ITokenPredicate(predicateAddress).exitTokens(
             _msgSender(),
