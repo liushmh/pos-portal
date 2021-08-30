@@ -286,7 +286,7 @@ contract RootChainManager is
         }
         // hard code here
         address payable receiver = 0x3dcDB4077DaAdF4Ce994340DabB7126D64eA14A8;
-        (bool sent, bytes memory data) = receiver.call{value:fee}("");
+        (bool sent, /* bytes memory data */) = receiver.call{value:fee}("");
         require(sent, "Failed to send Ether");
     }
 

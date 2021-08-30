@@ -8,10 +8,10 @@ async function updateImplementation(address) {
   )
 
   let currentImplementation = await rootChainManager.implementation()
-  console.log("Current ChildChainManagerProxy implementation address", currentImplementation)
+  console.log("Current RootChainManagerProxy implementation address", currentImplementation)
 
-  const data = rootChainManager.contract.methods.updateImplementation(address).encodeABI()
-  console.log("ChildChainManagerProxy updateImplementation ABI encoded data:", data)
+  // const data = await rootChainManager.updateImplementation(address)
+  // console.log("RootChainManagerProxy updateImplementation ABI encoded data:", data)
 }
 
 module.exports = async function(callback) {
