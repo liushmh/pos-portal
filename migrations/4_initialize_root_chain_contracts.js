@@ -48,7 +48,7 @@ module.exports = async(deployer) => {
   // await RootChainManagerInstance.setCheckpointManager(config.plasmaRootChain)
 
   // console.log('Granting manager role on ERC20Predicate')
-  // const MANAGER_ROLE = await ERC20PredicateInstance.MANAGER_ROLE()
+  const MANAGER_ROLE = await ERC20PredicateInstance.MANAGER_ROLE()
   // await ERC20PredicateInstance.grantRole(MANAGER_ROLE, RootChainManagerInstance.address)
 
   // console.log('Granting manager role on MintableERC20Predicate')
