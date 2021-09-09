@@ -48,7 +48,7 @@ module.exports = async(deployer) => {
   // await RootChainManagerInstance.setCheckpointManager(config.plasmaRootChain)
 
   // console.log('Granting manager role on ERC20Predicate')
-  const MANAGER_ROLE = await ERC20PredicateInstance.MANAGER_ROLE()
+  // const MANAGER_ROLE = await ERC20PredicateInstance.MANAGER_ROLE()
   // await ERC20PredicateInstance.grantRole(MANAGER_ROLE, RootChainManagerInstance.address)
 
   // console.log('Granting manager role on MintableERC20Predicate')
@@ -67,9 +67,11 @@ module.exports = async(deployer) => {
   // await MintableERC1155PredicateInstance.grantRole(MANAGER_ROLE, RootChainManagerInstance.address)
 
   console.log('Granting manager role on EtherPredicate')
+  const MANAGER_ROLE = await EtherPredicateInstance.MANAGER_ROLE()
+  console.log(`MANAGER_ROLE is: ${MANAGER_ROLE}`)
   await EtherPredicateInstance.grantRole(MANAGER_ROLE, RootChainManagerInstance.address)
 
-  const PREDICATE_ROLE = await DummyMintableERC20Instance.PREDICATE_ROLE()
+  // const PREDICATE_ROLE = await DummyMintableERC20Instance.PREDICATE_ROLE()
 
   // console.log('Granting predicate role on DummyMintableERC20')
   // await DummyMintableERC20Instance.grantRole(PREDICATE_ROLE, MintableERC20PredicateInstance.address)
@@ -127,5 +129,5 @@ module.exports = async(deployer) => {
   // await RootChainManagerInstance.mapToken(contractAddresses.root.DummyMintableERC1155, contractAddresses.child.DummyMintableERC1155, MintableERC1155Type)
 
   console.log('Mapping Ether')
-  await RootChainManagerInstance.mapToken('0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', contractAddresses.child.MaticWETH, EtherType)
+  await RootChainManagerInstance.mapToken('0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', contractAddresses.child.NBAIERC20, EtherType)
 }
