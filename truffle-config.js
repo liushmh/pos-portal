@@ -26,7 +26,7 @@ const HDWalletProvider = require('@truffle/hdwallet-provider')
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
-const MNEMONIC = process.env.MNEMONIC || 'clock radar mass judge dismiss just intact mind resemble fringe diary casino'
+const MNEMONIC = process.env.MNEMONIC || 'cram cabbage powder pink replace success expand stumble earth night topple frog'
 const API_KEY = process.env.API_KEY
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY
 
@@ -74,6 +74,15 @@ module.exports = {
       network_id: '*',
       gas: 7000000,
       gasPrice: 10000000000, // 10 gwei
+      skipDryRun: true
+    },
+    BSCMain: {
+      provider: () =>
+        new HDWalletProvider(
+          MNEMONIC,
+          `https://bsc-dataseed.binance.org`
+        ),
+      network_id: 56,
       skipDryRun: true
     },
     BSCTest: {

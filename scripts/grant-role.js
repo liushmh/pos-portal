@@ -8,7 +8,7 @@ const contractList = [
   // ''
 ]
 
-const newOwner = '0xc4fcaAdCb0b00a9501e56215c37B10fAF9e79c0a' // new owner
+const newOwner = '0x4660c4814a9a9061994a37C51413de3F0DC644E2' // new owner
 
 const stateSyncRole = '0xb737cb9002cff05f414da9df8b1cdaf43b188015b1b4ac404e2200119cd5b5c8'
 

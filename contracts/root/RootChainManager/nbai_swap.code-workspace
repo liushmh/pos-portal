@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../../../../../ethereum-watcher"
+		},
+		{
+			"path": "../../../../../payment-bridge"
 		}
 	],
 	"settings": {}
