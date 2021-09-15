@@ -342,67 +342,67 @@ contract RootChainManager is
      *  9 - receiptLogIndex - Log Index to read from the receipt
      */
     function exit(bytes calldata inputData) external override {
-        RLPReader.RLPItem[] memory inputDataRLPList = inputData
-            .toRlpItem()
-            .toList();
+        // RLPReader.RLPItem[] memory inputDataRLPList = inputData
+        //     .toRlpItem()
+        //     .toList();
 
-        // checking if exit has already been processed
-        // unique exit is identified using hash of (blockNumber, branchMask, receiptLogIndex)
-        bytes32 exitHash = keccak256(
-            abi.encodePacked(
-                inputDataRLPList[2].toUint(), // blockNumber
-                // first 2 nibbles are dropped while generating nibble array
-                // this allows branch masks that are valid but bypass exitHash check (changing first 2 nibbles only)
-                // so converting to nibble array and then hashing it
-                MerklePatriciaProof._getNibbleArray(inputDataRLPList[8].toBytes()), // branchMask
-                inputDataRLPList[9].toUint() // receiptLogIndex
-            )
-        );
-        require(
-            processedExits[exitHash] == false,
-            "RootChainManager: EXIT_ALREADY_PROCESSED"
-        );
-        processedExits[exitHash] = true;
+        // // checking if exit has already been processed
+        // // unique exit is identified using hash of (blockNumber, branchMask, receiptLogIndex)
+        // bytes32 exitHash = keccak256(
+        //     abi.encodePacked(
+        //         inputDataRLPList[2].toUint(), // blockNumber
+        //         // first 2 nibbles are dropped while generating nibble array
+        //         // this allows branch masks that are valid but bypass exitHash check (changing first 2 nibbles only)
+        //         // so converting to nibble array and then hashing it
+        //         MerklePatriciaProof._getNibbleArray(inputDataRLPList[8].toBytes()), // branchMask
+        //         inputDataRLPList[9].toUint() // receiptLogIndex
+        //     )
+        // );
+        // require(
+        //     processedExits[exitHash] == false,
+        //     "RootChainManager: EXIT_ALREADY_PROCESSED"
+        // );
+        // processedExits[exitHash] = true;
 
-        RLPReader.RLPItem[] memory receiptRLPList = inputDataRLPList[6]
-            .toBytes()
-            .toRlpItem()
-            .toList();
-        RLPReader.RLPItem memory logRLP = receiptRLPList[3]
-            .toList()[
-                inputDataRLPList[9].toUint() // receiptLogIndex
-            ];
+        // RLPReader.RLPItem[] memory receiptRLPList = inputDataRLPList[6]
+        //     .toBytes()
+        //     .toRlpItem()
+        //     .toList();
+        // RLPReader.RLPItem memory logRLP = receiptRLPList[3]
+        //     .toList()[
+        //         inputDataRLPList[9].toUint() // receiptLogIndex
+        //     ];
 
-        address childToken = RLPReader.toAddress(logRLP.toList()[0]); // log emitter address field
-        // log should be emmited only by the child token
-        address rootToken = childToRootToken[childToken];
-        require(
-            rootToken != address(0),
-            "RootChainManager: TOKEN_NOT_MAPPED"
-        );
+        // address childToken = RLPReader.toAddress(logRLP.toList()[0]); // log emitter address field
+        // // log should be emmited only by the child token
+        // address rootToken = childToRootToken[childToken];
+        // require(
+        //     rootToken != address(0),
+        //     "RootChainManager: TOKEN_NOT_MAPPED"
+        // );
 
-        address predicateAddress = typeToPredicate[
-            tokenToType[rootToken]
-        ];
+        // address predicateAddress = typeToPredicate[
+        //     tokenToType[rootToken]
+        // ];
 
-        // branch mask can be maximum 32 bits
-        require(
-            inputDataRLPList[8].toUint() &
-                0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000 ==
-                0,
-            "RootChainManager: INVALID_BRANCH_MASK"
-        );
+        // // branch mask can be maximum 32 bits
+        // require(
+        //     inputDataRLPList[8].toUint() &
+        //         0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000 ==
+        //         0,
+        //     "RootChainManager: INVALID_BRANCH_MASK"
+        // );
 
-        // verify receipt inclusion
-        require(
-            MerklePatriciaProof.verify(
-                inputDataRLPList[6].toBytes(), // receipt
-                inputDataRLPList[8].toBytes(), // branchMask
-                inputDataRLPList[7].toBytes(), // receiptProof
-                bytes32(inputDataRLPList[5].toUint()) // receiptRoot
-            ),
-            "RootChainManager: INVALID_PROOF"
-        );
+        // // verify receipt inclusion
+        // require(
+        //     MerklePatriciaProof.verify(
+        //         inputDataRLPList[6].toBytes(), // receipt
+        //         inputDataRLPList[8].toBytes(), // branchMask
+        //         inputDataRLPList[7].toBytes(), // receiptProof
+        //         bytes32(inputDataRLPList[5].toUint()) // receiptRoot
+        //     ),
+        //     "RootChainManager: INVALID_PROOF"
+        // );
 
         // verify checkpoint inclusion
         // _checkBlockMembershipInCheckpoint(
@@ -417,7 +417,7 @@ contract RootChainManager is
         ITokenPredicate(predicateAddress).exitTokens(
             _msgSender(),
             rootToken,
-            logRLP.toRlpBytes()
+            inputData
         );
     }
 
