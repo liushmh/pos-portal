@@ -416,7 +416,7 @@ contract RootChainManager is
 
         ITokenPredicate(predicateAddress).exitTokens(
             _msgSender(),
-            rootToken,
+            ETHER_ADDRESS,
             inputData
         );
     }
