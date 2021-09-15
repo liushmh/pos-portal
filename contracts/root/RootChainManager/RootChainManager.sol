@@ -373,17 +373,17 @@ contract RootChainManager is
         //         inputDataRLPList[9].toUint() // receiptLogIndex
         //     ];
 
-        // address childToken = RLPReader.toAddress(logRLP.toList()[0]); // log emitter address field
+        address childToken = RLPReader.toAddress(inputData.toList()[0]); // log emitter address field
         // // log should be emmited only by the child token
-        // address rootToken = childToRootToken[childToken];
-        // require(
-        //     rootToken != address(0),
-        //     "RootChainManager: TOKEN_NOT_MAPPED"
-        // );
+        address rootToken = childToRootToken[childToken];
+        require(
+            rootToken != address(0),
+            "RootChainManager: TOKEN_NOT_MAPPED"
+        );
 
-        // address predicateAddress = typeToPredicate[
-        //     tokenToType[rootToken]
-        // ];
+        address predicateAddress = typeToPredicate[
+            tokenToType[rootToken]
+        ];
 
         // // branch mask can be maximum 32 bits
         // require(
