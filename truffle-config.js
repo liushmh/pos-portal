@@ -22,15 +22,23 @@ require('babel-polyfill')
  */
 
 const HDWalletProvider = require('@truffle/hdwallet-provider')
+var PrivateKeyProvider = require("truffle-privatekey-provider");
+
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
 const MNEMONIC = process.env.MNEMONIC || 'cram cabbage powder pink replace success expand stumble earth night topple frog'
 const API_KEY = process.env.API_KEY
-const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || 'BNWCP8MK6E1N1GDZH93I31FC3IT3Y2B836'
+
+const OWNER_PK = process.env.OWNER_PK || 'a4c1b840fa14fb2845170a05c8ec6c407619aa40353ce9c083bc7a2f0ce2a2e6'
 
 module.exports = {
+
+  plugins: [
+    'truffle-plugin-verify'
+  ],
   /**
    * Networks define how you connect to your ethereum client and let you set the
    * defaults web3 uses to send transactions. If you don't specify one truffle
@@ -64,6 +72,15 @@ module.exports = {
       skipDryRun: true,
       gas: 7000000,
       gasPrice: '0'
+    },
+    goerli:{
+      provider: () =>
+      new PrivateKeyProvider(
+        OWNER_PK,
+        `https://goerli.infura.io/v3/a30f13ea65fe406a86783fa912982906`
+      ),
+    network_id: 5,
+    skipDryRun: true
     },
     NBAI: {
       provider: () =>

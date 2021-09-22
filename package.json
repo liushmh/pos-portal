@@ -42,7 +42,7 @@
   "devDependencies": {
     "@openzeppelin/contracts": "^3.1.0",
     "@openzeppelin/test-helpers": "^0.5.5",
-    "@truffle/hdwallet-provider": "^1.0.35",
+    "@truffle/hdwallet-provider": "^1.1.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.1.0",
     "babel-polyfill": "^6.26.0",
@@ -75,10 +75,13 @@
     "moonwalker": "github:atvanguard/moonwalker#4c4592e2d6c1744fbcd9452cf0f00e9beb236b21",
     "nunjucks": "^3.2.1",
     "solium": "^1.2.5",
-    "truffle": "^5.1.21",
-    "truffle-flattener": "^1.4.4"
+    "truffle": "^5.4.9",
+    "truffle-flattener": "^1.4.4",
+    "truffle-plugin-verify": "^0.5.14"
   },
   "dependencies": {
-    "ganache-cli": "^6.9.1"
+    "ganache-cli": "^6.9.1",
+    "truffle-privatekey-provider": "^1.5.0",
+    "web3-eth-abi": "^1.5.2"
   }
 }

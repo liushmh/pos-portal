@@ -2,12 +2,6 @@ const UpgradableProxy = artifacts.require('UpgradableProxy')
 
 const bscTokenContract = artifacts.require('DummnyERC20')
 
-const contractList = [
-  // contract address list
-  // '',
-  // '',
-  // ''
-]
 
 module.exports = async(callback) => {
   const accounts = await web3.eth.getAccounts()
@@ -22,7 +16,7 @@ module.exports = async(callback) => {
         const tokenInstance = await bscTokenContract.at(contractAddress)
         await tokenInstance.withdraw(withdrawAmount, { from: depositReceiver })
       } catch (e) {
-        console.log(`Error while changing admin of ${contractAddress}`)
+        console.log(`Error while withdrawing of ${contractAddress}`)
         console.error(e)
       }
 

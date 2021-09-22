@@ -1,0 +1,14 @@
+{
+  "root": {
+    "RootChainManager": "0x7741234395559EEc1F34f3E9931E288aE0a7991F",
+    "RootChainManagerProxy": "0xe11A86849d99F524cAC3E7A0Ec1241828e332C62",
+    "DummyStateSender": "0x60a43A2d57E79938b8dF8652d86D1b3A2132CBcE",
+    "EtherPredicate": "0x97916e6CC8DD75c6E6982FFd949Fc1768CF8c055",
+    "EtherPredicateProxy": "0xb3c964a688f9a64DE389dE4C035B0F22005d1A0f"
+  },
+  "child": {
+    "ChildChainManager": "0x589a82B1283cd1872C83261Bf699649C42fa5EDf",
+    "ChildChainManagerProxy": "0xa1A58C82bA4a0D8e856D8fad76bB72b04fd9736b",
+    "NBAIERC20": "0xDA1554cFe654871033beC02253937B772811eE7F"
+  }
+}
